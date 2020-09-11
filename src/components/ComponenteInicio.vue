@@ -22,7 +22,7 @@
                     </div>
                 </fieldset>
             </form> -->
-
+            <!-- PRUEBA -->
             <div id="div-loader" v-if="carga">
                 <ul id="loader">
                     <li></li>
