@@ -22,7 +22,16 @@
                     </div>
                 </fieldset>
             </form> -->
-            <ul class="list-group mt-5">
+
+            <div id="div-loader" v-if="carga">
+                <ul id="loader">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <ul class="list-group mt-5" v-if="!carga">
                 <router-link :to="{name:'agregar'}">
                     <button class="btn btn-success btn-block boton-agregar">Agregar Tarea</button>
                 </router-link>
@@ -44,11 +53,12 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+
+import { mapState, mapActions } from 'vuex';
 export default {
     name:'ComponenteInicio',
     computed:{
-        ...mapState(['usuario','tareas'])
+        ...mapState(['usuario','tareas','carga'])
     },
     methods:{
         ...mapActions(['getTareas', 'eliminarTarea'])
@@ -67,5 +77,49 @@ export default {
     }
     .boton-agregar{
         margin-bottom: 2rem;
+    }
+
+
+    ul#loader {
+    list-style-type: none;
+    display: flex;
+    padding: 0;
+    }
+
+    ul#loader li {
+    margin: 0.2rem;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background-color: #42b983;
+    
+    animation: dotanimation 0.4s ease infinite alternate both;
+    }
+
+    ul#loader li:nth-child(2) {
+    animation-delay: 0.2s;
+    }
+
+    ul#loader li:nth-child(3) {
+    animation-delay: 0.4s;
+    }
+
+    ul#loader li:nth-child(4) {
+    animation-delay: 0.6s;
+    }
+
+    @keyframes dotanimation {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-1rem);
+    }
+    }
+    #div-loader{
+        display: flex;
+        text-align: center;
+        justify-content: center;
     }
 </style>

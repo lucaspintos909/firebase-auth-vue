@@ -13,7 +13,8 @@ export default new Vuex.Store({
     usuario:'',
     error:'',
     tareas:[],
-    tarea:{ nombre:'', id:''}
+    tarea:{ nombre:'', id:''},
+    carga : false
   },
   mutations: {
     setUsuario(state,payload){
@@ -32,6 +33,9 @@ export default new Vuex.Store({
       state.tareas= state.tareas.filter( doc => {
         return doc.id != id;
       });
+    },
+    cargarFirebase(state, payload){
+      state.carga=payload;
     }
   },
   actions: {
@@ -80,6 +84,9 @@ export default new Vuex.Store({
       router.push({name:'ingreso'});
     },
     getTareas({commit}){
+
+      commit('cargarFirebase',true);
+
       const usuario = firebase.auth().currentUser;
       const tareas = [];
       db.collection(usuario.email).get()
@@ -91,8 +98,11 @@ export default new Vuex.Store({
             tarea.id=documento.id;
             tareas.push(tarea );
           });
+          
+            commit('cargarFirebase',false);
+          
         });
-
+      
       commit('setTareas',tareas);
     },
     getTarea({commit}, id){
@@ -130,7 +140,8 @@ export default new Vuex.Store({
         .then( () => {
           commit('eliminarTarea',id)
         });
-    }
+    },
+
   },
   modules: {
   },

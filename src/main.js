@@ -1,8 +1,9 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
 
+/* Vue.component('pulse-loader', require('vue-spinner/src/PulseLoader.vue')); */
 
 var firebase = require("firebase/app");
 
@@ -40,6 +41,9 @@ firebase.auth().onAuthStateChanged((user) =>{
   new Vue({
     router,
     store,
+    /* components: {
+      'PulseLoader': PulseLoader
+    }, */
     render: h => h(App)
   }).$mount('#app');
   
