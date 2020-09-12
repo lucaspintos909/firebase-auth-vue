@@ -2,6 +2,7 @@
     
     <div>
         <div class="mt-5">
+            <h2 class="mb-5">Lista de tareas</h2>
             <h3>Bienvenido {{usuario.email}}!</h3>
         </div>
         <div class="container div-padre mt-5">
