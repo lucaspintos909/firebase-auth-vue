@@ -14,7 +14,8 @@ export default new Vuex.Store({
     error:'',
     tareas:[],
     tarea:{ nombre:'', id:''},
-    carga : false
+    carga : false,
+    texto:''
   },
   mutations: {
     setUsuario(state,payload){
@@ -36,9 +37,15 @@ export default new Vuex.Store({
     },
     cargarFirebase(state, payload){
       state.carga=payload;
+    },
+    cargarTexto(state,payload){
+      state.texto=payload;
     }
   },
   actions: {
+    buscador({commit}, payload){
+      commit('cargarTexto', payload.toLowerCase());
+    },
     crearUsuario({commit}, payload){
       firebase.auth().createUserWithEmailAndPassword(payload.email,payload.pass)
         .then(res=>{
@@ -159,6 +166,17 @@ export default new Vuex.Store({
       }else{
         return true;
       }
+    },
+    arrayFiltrado(state){
+      let arregloFiltrado = [];
+      state.tareas.forEach(tarea => {
+        let nombre = tarea.nombre.toLowerCase();
+        if(nombre.indexOf(state.texto) >= 0){
+          arregloFiltrado.push(tarea)
+        }
+      });
+      return arregloFiltrado;
+
     }
   }
 })
