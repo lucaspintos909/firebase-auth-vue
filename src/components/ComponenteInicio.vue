@@ -6,24 +6,24 @@
             <h3>Bienvenido {{usuario.email}}!</h3>
         </div>
         <div class="container div-padre mt-5">
-            <!-- <form v-if="usuario != null" class="">
-                <fieldset disabled>
-                    <div class="input-group mb-2 mr-sm-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">Id </div>
-                        </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroupUsername2" v-model="usuario.uid">
-                    </div>
+            
+            <form @submit.prevent="buscador(texto)" class="mb-5">
+                
 
-                    <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group div-input centrar" >
+
                         <div class="input-group-prepend">
-                            <div class="input-group-text">Email</div>
+                            <div class="input-group-text">Buscar</div>
+                            
                         </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroupUsername2"  v-model="usuario.email">
+                        <input type="text" 
+                            class="form-control"
+                            v-model="texto"
+                            v-on:keyup="buscador(texto)">
+
                     </div>
-                </fieldset>
-            </form> -->
-            <!--PRUEBAS-->
+            </form>
+
             <div id="div-loader" v-if="carga">
                 <ul id="loader">
                     <li></li>
@@ -32,11 +32,12 @@
                     <li></li>
                 </ul>
             </div>
+
             <ul class="list-group mt-5" v-if="!carga">
                 <router-link :to="{name:'agregar'}">
                     <button class="btn btn-success btn-block boton-agregar">Agregar Tarea</button>
                 </router-link>
-                <li class="list-group-item" v-for="item of tareas" :key="item.id"> 
+                <li class="list-group-item" v-for="item of arrayFiltrado" :key="item.id"> 
                     {{item.nombre}}
                     <div class="float-right">
                         <!--<span class="badge badge-primary badge-pill">{{item.id}}</span>-->
@@ -55,14 +56,20 @@
 
 <script>
 
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 export default {
     name:'ComponenteInicio',
+    data(){
+        return{
+            texto: ''
+        }
+    },
     computed:{
-        ...mapState(['usuario','tareas','carga'])
+        ...mapState(['usuario','tareas','carga']),
+        ...mapGetters(['arrayFiltrado'])
     },
     methods:{
-        ...mapActions(['getTareas', 'eliminarTarea'])
+        ...mapActions(['getTareas', 'eliminarTarea','buscador'])
     },
     created(){
         this.getTareas()
