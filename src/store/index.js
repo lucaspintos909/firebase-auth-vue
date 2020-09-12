@@ -49,9 +49,10 @@ export default new Vuex.Store({
             nombre:'Tarea de ejemplo'
           })
             .then(()=>{
+              
               router.push({name:'inicio'});
             })
-            
+            commit('cargarFirebase',false);
         })
         .catch(err=>{
           commit('setError',err.message);
@@ -64,6 +65,7 @@ export default new Vuex.Store({
             email:res.user.email,
             uid:res.user.uid
           });
+          commit('cargarFirebase',false);
           router.push({name:'inicio'});
         })
         .catch(err => {
@@ -117,21 +119,26 @@ export default new Vuex.Store({
         });
     },
     editarTarea({commit},tarea){
+      commit('cargarFirebase',true);
       const usuario = firebase.auth().currentUser;
       db.collection(usuario.email).doc(tarea.id).update({
         nombre:tarea.nombre
       })
         .then(()=>{
+          commit('cargarFirebase',false);
           router.push({name:'inicio'});
         });
     },
     agregarTarea({commit}, nombre){
+      commit('cargarFirebase',true);
       const usuario = firebase.auth().currentUser;
       db.collection(usuario.email).add({
         nombre: nombre
       })
         .then(doc => {
+          
           router.push({name:'inicio'});
+          commit('cargarFirebase',false);
         });
     },
     eliminarTarea({commit}, id){
