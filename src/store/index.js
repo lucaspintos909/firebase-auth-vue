@@ -117,11 +117,13 @@ export default new Vuex.Store({
         });
     },
     editarTarea({commit},tarea){
+      commit('cargarFirebase',true);
       const usuario = firebase.auth().currentUser;
       db.collection(usuario.email).doc(tarea.id).update({
         nombre:tarea.nombre
       })
         .then(()=>{
+          commit('cargarFirebase',false);
           router.push({name:'inicio'});
         });
     },

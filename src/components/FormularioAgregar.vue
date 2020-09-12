@@ -16,8 +16,7 @@
             <div class="centrar mt-4">
                 <button class="btn btn-primary mb-2" type="submit" :disabled="$v.$invalid || carga">Agregar</button>
             </div>
-        </form>
-        {{$v.nombre}}
+        </form> 
     </div>
 </template>
 
