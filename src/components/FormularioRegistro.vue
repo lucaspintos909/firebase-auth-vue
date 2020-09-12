@@ -21,8 +21,8 @@
                     <small class="text-danger" v-if="!$v.pass2.sameAs">Las contrasegnas no son iguales</small>
                 </div>
             </div>
-            <p>{{error}}</p>
-            <button  class="mt-5 btn btn-primary" type="submit" :disabled="$v.$invalid || carga">Crear Usuario</button>
+            <p v-if="error" class="text-danger">El email ingresado ya esta asociado a un usuario!</p>
+            <button  class="mt-5 btn btn-primary" type="submit" :disabled="$v.$invalid">Crear Usuario</button>
         </form>
     </div>
 </template>

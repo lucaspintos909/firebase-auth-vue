@@ -5,20 +5,20 @@
             <div class="form-group" >
                 <label>Email address *</label>
                 <input type="email" class="form-control" v-model="$v.email.$model" aria-describedby="emailHelp">
+                <small class="text-danger" v-if="!$v.email.required">Campo requerido</small>
+                <small class="text-danger" v-if="!$v.email.email">Email invalido</small>
             </div>
 
-            <small class="text-danger" v-if="!$v.email.required">Campo requerido</small>
-            <small class="text-danger" v-if="!$v.email.email">Email invalido</small>
+            
 
             <div class="form-group">
                 <label>Password *</label>
                 <input type="password" class="form-control" v-model="$v.pass.$model">
+                <small class="text-danger" v-if="!$v.pass.required">Campo requerido</small>
             </div>
 
-            <small class="text-danger" v-if="!$v.pass.required">Campo requerido</small>
-
-            <p>{{error}}</p>
-            <button  class="mt-5 btn btn-primary" type="submit" :disabled="$v.$invalid || carga">Acceder</button>
+            <p v-if="error" class="text-danger">Contrasegna o email no validos</p>
+            <button  class="mt-5 btn btn-primary" type="submit" :disabled="$v.$invalid">Acceder</button>
         </form>
     </div>
 </template>
