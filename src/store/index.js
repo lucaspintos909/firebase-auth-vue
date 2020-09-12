@@ -126,12 +126,15 @@ export default new Vuex.Store({
         });
     },
     agregarTarea({commit}, nombre){
+      commit('cargarFirebase',true);
       const usuario = firebase.auth().currentUser;
       db.collection(usuario.email).add({
         nombre: nombre
       })
         .then(doc => {
+          
           router.push({name:'inicio'});
+          commit('cargarFirebase',false);
         });
     },
     eliminarTarea({commit}, id){
