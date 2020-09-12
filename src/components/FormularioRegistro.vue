@@ -1,24 +1,28 @@
 <template>
     <div class="container mt-5">
-        <form @submit.prevent="crearUsuario({email:email,pass:pass1})">
+        <form @submit.prevent="crearUsuario({email:$v.email.$model,pass:$v.pass2.$model})">
 
             <div class="form-group" >
                 <label>Email address *</label>
-                <input type="email" class="form-control" v-model="email" aria-describedby="emailHelp">
+                <input type="$v.email.$model" class="form-control" v-model="$v.email.$model" aria-describedby="emailHelp">
             </div>
+            <small class="text-danger" v-if="!$v.email.required">Campo requerido</small>
+            <small class="text-danger" v-if="!$v.email.email">Email invalido</small>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Password *</label>
-                    <input type="password" class="form-control" v-model="pass1">
+                    <input type="password" class="form-control" v-model="$v.pass1.$model">
+                    <small class="text-danger" v-if="!$v.pass1.required">Campo requerido</small>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Confirm Password *</label>
-                    <input type="password" class="form-control" v-model="pass2">
+                    <input type="password" class="form-control" v-model="$v.pass2.$model">
+                    <small class="text-danger" v-if="!$v.pass2.sameAs">Las contrasegnas no son iguales</small>
                 </div>
             </div>
             <p>{{error}}</p>
-            <button  class="mt-5 btn btn-primary" type="submit" :disabled="!desactivar">Crear Usuario</button>
+            <button  class="mt-5 btn btn-primary" type="submit" :disabled="$v.$invalid || carga">Crear Usuario</button>
         </form>
     </div>
 </template>
@@ -26,6 +30,7 @@
 <script>
 
 import {mapActions,mapState} from 'vuex';
+import {required, minLength, email, sameAs} from 'vuelidate/lib/validators';
 
 export default {
     name:'FormularioRegistro',
@@ -40,9 +45,20 @@ export default {
         ...mapActions(['crearUsuario'])
     },
     computed:{
-        ...mapState(['error']),
-        desactivar(){
-            return this.pass1 === this.pass2 && this.pass1 != '' && this.pass2 != '';
+        ...mapState(['error', 'carga'])
+    },
+    validations:{
+        email:{
+            required,
+            email
+        },
+        pass1:{
+            required,
+            minLength:minLength(6)
+        },
+        pass2:{
+            required,
+            sameAs:sameAs('pass1')
         }
     }
 }

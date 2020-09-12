@@ -40,6 +40,7 @@ export default new Vuex.Store({
   },
   actions: {
     crearUsuario({commit}, payload){
+      commit('cargarFirebase',true);
       firebase.auth().createUserWithEmailAndPassword(payload.email,payload.pass)
         .then(res=>{
           ///console.log(res);
@@ -49,24 +50,29 @@ export default new Vuex.Store({
             nombre:'Tarea de ejemplo'
           })
             .then(()=>{
+              
               router.push({name:'inicio'});
             })
-            
+            commit('cargarFirebase',false);
         })
         .catch(err=>{
+          commit('cargarFirebase',false);
           commit('setError',err.message);
         });
     },
     ingresoUsuario({commit}, payload){
+      commit('cargarFirebase',true);
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.pass)
         .then(res => {
           commit('setUsuario',{
             email:res.user.email,
             uid:res.user.uid
           });
+          commit('cargarFirebase',false);
           router.push({name:'inicio'});
         })
         .catch(err => {
+          commit('cargarFirebase',false);
           commit('setError',err.message);
         })
     },
