@@ -1,5 +1,8 @@
 <template>
     <div class="container mt-5">
+        <div class="mb-5">
+            <h1>Ingreso</h1>
+        </div>
         <form @submit.prevent="ingresoUsuario({email:$v.email.$model,pass:$v.pass.$model})">
 
             <div class="form-group" >

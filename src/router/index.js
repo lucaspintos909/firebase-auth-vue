@@ -8,29 +8,29 @@ Vue.use(VueRouter)
   {
     path: '/registro',
     name: 'registro',
-    component: () => import(/* webpackChunkName: "registro" */ '../views/Registro.vue')
+    component: () => import(/* webpackChunkName: "registro" */ '../components/FormularioRegistro.vue')
   },
   {
     path: '/',
     name: 'inicio',
-    component: () => import(/* webpackChunkName: "inicio" */ '../views/Inicio.vue'),
+    component: () => import(/* webpackChunkName: "inicio" */ '../components/ComponenteInicio.vue'),
     meta:{requiresAuth:true}
   },
   {
     path: '/ingreso',
     name: 'ingreso',
-    component: () => import(/* webpackChunkName: "ingreso" */ '../views/Ingreso.vue')
+    component: () => import(/* webpackChunkName: "ingreso" */ '../components/FormularioIngreso.vue')
   },
   {
     path: '/agregar',
     name: 'agregar',
-    component: () => import(/* webpackChunkName: "ingreso" */ '../views/Agregar.vue'),
+    component: () => import(/* webpackChunkName: "ingreso" */ '../components/FormularioAgregar.vue'),
     meta:{requiresAuth:true}
   },
   {
     path: '/editar/:id',
     name: 'editar',
-    component: () => import(/* webpackChunkName: "ingreso" */ '../views/Editar.vue'),
+    component: () => import(/* webpackChunkName: "ingreso" */ '../components/FormularioEditar.vue'),
     meta:{requiresAuth:true}
   }
   ]
