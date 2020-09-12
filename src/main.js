@@ -5,6 +5,9 @@ import store from './store';
 
 /* Vue.component('pulse-loader', require('vue-spinner/src/PulseLoader.vue')); */
 
+import Vuelidate from 'vuelidate';
+Vue.use(Vuelidate)
+
 var firebase = require("firebase/app");
 
 require("firebase/auth");
