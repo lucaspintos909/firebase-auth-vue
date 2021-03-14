@@ -1,4 +1,9 @@
-# firebase-auth
+# Firebase Auth
+Aplicacion de notas hecha con Vuejs, para el manejo de usuarios y de notas usando Firebase Cloud y Firebase Auth.
+
+## Enviroment variables
+
+Incluir las claves que proporciona firebase en un archivo .env 
 
 ## Project setup
 ```
@@ -14,6 +19,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
