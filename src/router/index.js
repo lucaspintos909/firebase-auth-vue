@@ -24,13 +24,13 @@ Vue.use(VueRouter)
   {
     path: '/agregar',
     name: 'agregar',
-    component: () => import(/* webpackChunkName: "ingreso" */ '../components/FormularioAgregar.vue'),
+    component: () => import(/* webpackChunkName: "agregar" */ '../components/FormularioAgregar.vue'),
     meta:{requiresAuth:true}
   },
   {
     path: '/editar/:id',
     name: 'editar',
-    component: () => import(/* webpackChunkName: "ingreso" */ '../components/FormularioEditar.vue'),
+    component: () => import(/* webpackChunkName: "editar" */ '../components/FormularioEditar.vue'),
     meta:{requiresAuth:true}
   }
   ]
